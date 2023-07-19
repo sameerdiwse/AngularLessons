@@ -10,21 +10,41 @@ template: `<h2>{{"Authors : "+ getTitle()}}
     </li>
   </ul>
 </h2>
-<button [style.backgroundColor]="isActive ? 'black' : 'green'">LogIn</button>`
+<!-- <input [value]="email" (keyup.enter)="email = $event.target?.value; onKeyUp()"/> -->
+<div (click)="divClick()">
+<button (click)="callFunc($event)" [style.backgroundColor]="isActive ? 'black' : 'green'">LogIn</button>
+</div>`
 })
 //[class.active]="isActive"
 export class CoursesComponent
 {
+  email = 'samer@gmail.com';
   title="Authors";  
+
+  onKeyUp()
+  {
+    console.log(this.email);
+  }
 
   getTitle()
   {
     return this.title;
   }
 
+  callFunc($event: { stopPropagation: () => void; })
+  {
+    $event.stopPropagation();
+    console.log("It is logged in!", $event);
+  }
+
+  divClick()
+  {
+    console.log("div is clicked.");
+  }
+
   courses;
 
-  isActive = true;
+  isActive = false;
 
   constructor(service:CoursesService)
   {
